@@ -3,7 +3,9 @@
 #include <vector>
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "SDLGameObject.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game 
 {
