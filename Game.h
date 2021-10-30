@@ -7,9 +7,23 @@
 
 class Game 
 {
+ private:
+    Game() {}
+    static Game* s_pInstance;
+  
   public:
-  Game() {}
-  ~Game() {}
+    static Game* Instance()
+    {
+      if(s_pInstance ==0)
+      {
+        s_pInstance = new Game();
+      }
+
+      return s_pInstance;
+    }
+
+  SDL_Renderer* getRenderer() const {return m_pRenderer;}
+  
   bool init(const char *title, int xpos, int ypos, int width, int height, int flags);
   void render();
   void update();
@@ -29,3 +43,4 @@ class Game
 
 };
 
+typedef Game TheGame;
