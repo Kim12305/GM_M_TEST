@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include <vector>
 #include "TextureManager.h"
 #include "GameObject.h"
 #include "Player.h"
@@ -24,8 +25,7 @@ class Game
   //TextureManager m_textureManager;
   int m_currentFrame;
 
-  GameObject m_go;
-  Player m_player;
+  std::vector<GameObject*> m_gameObjects;
 
 };
 
