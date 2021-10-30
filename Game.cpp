@@ -1,11 +1,11 @@
 #include "Game.h"
-#include "TextureManager.h"
 
 bool Game::init(const char *title, int xpos, int ypos, int width, int height, int flags)
 {
   if (SDL_Init(SDL_INIT_EVERYTHING) == 0) 
   {
-    m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+  m_pWindow = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+
     if (m_pWindow != 0) 
     {
       m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, 0);
@@ -17,43 +17,55 @@ bool Game::init(const char *title, int xpos, int ypos, int width, int height, in
       {
         return false; // 랜더러 생성 실패
       }
-    } 
 
+    }
+    
     else 
     {
       return false; // 윈도우 생설 실패 l
     }
-  }
-
+  } 
+  
   else 
   {
-
-    return false; // SDL 초기화 실패
+      return false; // SDL 초기화 실패
   }
 
+/*
+    SDL_Surface* pTempSurface = IMG_Load("Assets/animate-alpha.png");
 
-  if(!TheTextureManager::Instance()‐>load("Assets/animate‐alpha.png",
-  "animate",m_pRenderer))
-  {
-    return false;
-  }
-  
+    m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTempSurface);
+    SDL_FreeSurface(pTempSurface);
+
+    m_sourceRectangle.w = 128;
+    m_sourceRectangle.h = 82;
+
+    m_destinationRectangle.w = m_sourceRectangle.w;
+    m_destinationRectangle.h = m_sourceRectangle.h;
+
+    m_destinationRectangle.x = m_sourceRectangle.x = 0;
+    m_destinationRectangle.y = m_sourceRectangle.y = 0;
+*/
+
+  m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
+
   m_bRunning = true;
   return true;
 }
 
 void Game::update()
 {
-  m_currentFrame = 128* ((SDL_GetTicks() / 100) % 6);
+ // m_sourceRectangle.x = 128* ((SDL_GetTicks() / 100) % 6);
+  m_currentFrame = ( (SDL_GetTicks() / 100) % 6);
 }
 
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);
-
-  TheTextureManager::Instance()‐>draw("animate",0,0,128,82,m_pRenderer);
-  TheTextureManager::Instance()‐>drawFrame("animate",100,100,128,82,0
-  ,m_currentFrame, m_pRenderer);
+ // SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle, &m_destinationRectangle);
+  m_textureManager.draw("animate", 0, 0, 128, 82, m_pRenderer);
+  m_textureManager.drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+ 
   SDL_RenderPresent(m_pRenderer);
 }
 

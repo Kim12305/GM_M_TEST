@@ -1,7 +1,5 @@
 #include "TextureManager.h"
 
-TextureManager* TextureManager::s_pInstance = 0;
-
 bool TextureManager::load(std::string fileName, std::string id,
 SDL_Renderer*pRenderer)
 {
@@ -13,13 +11,11 @@ SDL_Renderer*pRenderer)
   }
 
   SDL_Texture* pTexture = SDL_CreateTextureFromSurface(pRenderer, pTempSurface);
-
   SDL_FreeSurface(pTempSurface);
 
   if(pTexture != 0)
   {
     m_textureMap[id] = pTexture;
-
     return true;
   }
 

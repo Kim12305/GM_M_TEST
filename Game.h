@@ -1,6 +1,5 @@
 #pragma once
 #include "SDL.h"
-#include "SDL_image.h"
 #include "TextureManager.h"
 
 class Game 
@@ -8,7 +7,6 @@ class Game
   public:
   Game() {}
   ~Game() {}
-  
   bool init(const char *title, int xpos, int ypos, int width, int height, int flags);
   void render();
   void update();
@@ -21,6 +19,9 @@ class Game
   SDL_Renderer* m_pRenderer;
   bool m_bRunning;
 
+  TextureManager m_textureManager;
   int m_currentFrame;
+
+
 };
 
